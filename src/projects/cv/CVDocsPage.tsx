@@ -7,7 +7,9 @@ const modules = import.meta.glob("/src/content/cv/*.md", {
   eager: true,
 }) as Record<string, string>
 
-const documents = createDocumentCollection(modules)
+const documents = createDocumentCollection(modules).filter(
+  (document) => document.slug !== "omega-language",
+)
 
 export function CVDocsPage() {
   return (
@@ -19,4 +21,3 @@ export function CVDocsPage() {
     />
   )
 }
-
