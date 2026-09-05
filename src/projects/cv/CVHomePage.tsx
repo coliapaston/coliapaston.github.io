@@ -45,9 +45,10 @@ export function CVHomePage() {
         </div>
         <div>
           <p className="section-intro">
-            I am interested in the internal structure and reliability of modern AI systems,
-            especially where representation analysis, symbolic structure, and human-facing
-            exploration tools meet.
+            My research studies how modern AI systems represent information internally, how reliably
+            these representations support downstream tasks, and how data-driven models can be developed
+            and evaluated across heterogeneous data structures. I use representation learning, feature
+            selection, and graph modeling to improve reliable prediction and interpretable decision support.
           </p>
           <ul className="interest-list">
             {profile.interests.map((interest) => <li key={interest}>{interest}</li>)}
