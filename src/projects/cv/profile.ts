@@ -5,8 +5,19 @@ export const profile = {
   email: "ked000@ksu.edu",
   github: "https://github.com/coliapaston",
   image: "/images/profile.png",
-  introduction:
-    "My work is focus on how machine-learning systems organize information, reason over structure, and communicate their behavior through interpretable representations and interactive tools.",
+  introduction: {
+    lead: "I am a Ph.D. student in Computer Science at Kansas State University, advised by",
+    advisors: [
+      {
+        name: "Prof. Eugene Y. Vasserman",
+        url: "https://people.cs.ksu.edu/~eyv/",
+      },
+      {
+        name: "Prof. Pascal Hitzler",
+        url: "https://people.cs.ksu.edu/~hitzler/",
+      },
+    ],
+  },
   interests: [
     "Large language model representations",
     "Reliable and interpretable AI",

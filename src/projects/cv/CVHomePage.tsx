@@ -13,7 +13,18 @@ export function CVHomePage() {
           <p className="eyebrow">Computer Science</p>
           <h1 id="profile-name">{profile.name}</h1>
           <p className="cv-role">{profile.role}</p>
-          <p className="cv-lede">{profile.introduction}</p>
+          <p className="cv-lede">
+            {profile.introduction.lead}{" "}
+            {profile.introduction.advisors.map((advisor, index) => (
+              <span key={advisor.url}>
+                {index > 0 && " and "}
+                <a href={advisor.url} target="_blank" rel="noreferrer">
+                  {advisor.name}
+                </a>
+              </span>
+            ))}
+            {"."}
+          </p>
 
           <div className="profile-links" aria-label="Contact links">
             <a href={`mailto:${profile.email}`}><Mail size={16} /> {profile.email}</a>

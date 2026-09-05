@@ -271,6 +271,17 @@ img {
   line-height: 1.55;
 }
 
+.cv-lede a {
+  color: var(--interactive);
+  font-weight: 600;
+}
+
+.cv-lede a:hover {
+  color: var(--interactive-hover);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .profile-links {
   display: flex;
   flex-wrap: wrap;
