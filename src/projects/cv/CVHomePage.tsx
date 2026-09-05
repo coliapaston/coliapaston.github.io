@@ -58,9 +58,11 @@ export function CVHomePage() {
                 <p>{publication.authors}</p>
                 <div className="publication-footer">
                   <span>{publication.venue}</span>
-                  <a href={publication.pdf} target="_blank" rel="noreferrer">
-                    <FileText size={14} /> PDF
-                  </a>
+                  {publication.pdf && (
+                    <a href={publication.pdf} target="_blank" rel="noreferrer">
+                      <FileText size={14} /> PDF
+                    </a>
+                  )}
                 </div>
               </div>
             </li>

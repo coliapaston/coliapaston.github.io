@@ -17,10 +17,17 @@ export const profile = {
 
 export const publications = [
   {
+    year: "2026",
+    title: "From Local Density to Lexical Features: A Cross-Scale Study of Unembedding Spaces",
+    authors: "Ke Dong, Pascal Hitzler, and Eugene Y. Vasserman",
+    venue: "MIWAI 2026 — Accepted, forthcoming",
+    pdf: null,
+  },
+  {
     year: "2025",
     title: "On the Logical (In)consistency of Code-generating LLMs",
     authors: "Ke Dong, William Hsu, Pascal Hitzler, and Eugene Y. Vasserman",
-    venue: "KI 2025",
+    venue: "GenSE 2025 · Software Engineering 2025 Companion",
     pdf: "/papers/codeLogic_2025.pdf",
   },
   {

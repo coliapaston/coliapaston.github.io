@@ -12,6 +12,6 @@ Five lightweight language models were evaluated using real-world Python samples 
 The study connects logical consistency results with EvalPlus@1 and highlights a remaining weakness in handling simple reasoning operations and contextual information.
 
 **Authors:** Ke Dong, William Hsu, Pascal Hitzler, and Eugene Y. Vasserman  
-**Venue:** KI 2025  
+**Venue:** 2nd Workshop on Generative and Neurosymbolic AI in Software Engineering (GenSE 2025), Software Engineering 2025 Companion Proceedings  
+**DOI:** [10.18420/SE2025-WS-12](https://doi.org/10.18420/SE2025-WS-12)  
 **PDF:** [Read the paper](/papers/codeLogic_2025.pdf)
-
