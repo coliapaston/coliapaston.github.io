@@ -163,6 +163,60 @@ type DataPoint = {
   members?: string[]       // only for cluster centers
 }
 
+const byteLevelDecoder = (() => {
+  const bytes = [
+    ...Array.from({ length: 94 }, (_, index) => index + 33),
+    ...Array.from({ length: 12 }, (_, index) => index + 161),
+    ...Array.from({ length: 82 }, (_, index) => index + 174),
+  ]
+  const codePoints = [...bytes]
+
+  let extraCodePoint = 256
+  for (let byte = 0; byte < 256; byte += 1) {
+    if (!bytes.includes(byte)) {
+      bytes.push(byte)
+      codePoints.push(extraCodePoint)
+      extraCodePoint += 1
+    }
+  }
+
+  return new Map(codePoints.map((codePoint, index) => [String.fromCodePoint(codePoint), bytes[index]]))
+})()
+
+const utf8TokenDecoder = new TextDecoder("utf-8", { fatal: true })
+
+function makeTokenWhitespaceVisible(value: string) {
+  return Array.from(value, (character) => {
+    if (character === " ") return "Ġ"
+    if (character === "\n") return "↵"
+    if (character === "\r") return "␍"
+    if (character === "\t") return "⇥"
+
+    const codePoint = character.codePointAt(0)!
+    if (codePoint < 32 || codePoint === 127) {
+      return `<0x${codePoint.toString(16).toUpperCase().padStart(2, "0")}>`
+    }
+    return character
+  }).join("")
+}
+
+function decodeGptOssTokenLabel(label: string) {
+  const bytes: number[] = []
+
+  for (const character of label) {
+    const byte = byteLevelDecoder.get(character)
+    if (byte === undefined) return label
+    bytes.push(byte)
+  }
+
+  try {
+    const decoded = utf8TokenDecoder.decode(new Uint8Array(bytes))
+    return makeTokenWhitespaceVisible(decoded)
+  } catch {
+    return bytes.map((byte) => `<0x${byte.toString(16).toUpperCase().padStart(2, "0")}>`).join("")
+  }
+}
+
 export function ClusterChart({ filePath }: { filePath: string | null }) {
   const [data, setData] = useState<DataPoint[]>([])
   const [clusters, setClusters] = useState(5) // number of clusters to display (0–20)
@@ -192,10 +246,19 @@ export function ClusterChart({ filePath }: { filePath: string | null }) {
         return res.json()
       })
       .then((json: DataPoint[]) => {
-        setData(json)
+        const normalizedJson = filePath.includes("/gpt-oss/")
+          ? json.map((point) => ({
+              ...point,
+              token_label: point.token_label
+                ? decodeGptOssTokenLabel(point.token_label)
+                : point.token_label,
+            }))
+          : json
+
+        setData(normalizedJson)
         setSelectedPoint(null)
         setError(false)   // Success -> Clear Error
-        const allClusters = Array.from(new Set(json.map((d) => d.cluster_label)))
+        const allClusters = Array.from(new Set(normalizedJson.map((d) => d.cluster_label)))
         const picked = pickRandomClusters(allClusters, 20, seed)
         setPickedClusters(picked)
       })
