@@ -1,6 +1,6 @@
 export const profile = {
   name: "Ke Dong",
-  role: "Computer Science Researcher",
+  role: "Computer Science PhD student",
   location: "Manhattan, Kansas",
   email: "ked000@ksu.edu",
   github: "https://github.com/coliapaston",
